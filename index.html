@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowHaus – Beauty that Blooms</title>
+    <script type="application/json" id="product-images">
+</script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --plum: #3d0c2e;
+            --deep-plum: #2a0820;
+            --rose: #e8637a;
+            --blush: #f5c6ce;
+            --gold: #c9973a;
+            --ivory: #fff9f5;
+            --soft-pink: #fde8ed;
+            --text-dark: #1a0812;
+            --text-mid: #5c2d45;
+            --border: #f0d4dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--ivory);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--deep-plum);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0 32px;
+            height: 64px;
+            box-shadow: 0 2px 20px rgba(61, 12, 46, 0.4);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-logo span {
+            color: var(--rose);
+            font-style: italic;
+        }
+
+        .nav-search {
+            flex: 1;
+            max-width: 480px;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0 12px;
+            gap: 8px;
+        }
+
+        .nav-search input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 0.85rem;
+            padding: 10px 0;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .nav-search input::placeholder {
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .nav-search button {
+            background: var(--rose);
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
+        .nav-search button:hover {
+            background: #d44f67;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: auto;
+        }
+
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            color: #fff;
+            position: relative;
+            background: transparent;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn .nav-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1;
+        }
+
+        .nav-btn .nav-main {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .nav-badge {
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            background: var(--rose);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .nav-badge.visible {
+            opacity: 1;
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.15);
+            margin: 0 4px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--deep-plum) 0%, #5c1a40 50%, #8b2252 100%);
+            min-height: 480px;
+            display: flex;
+            align-items: center;
+            padding: 60px 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(232, 99, 122, 0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: 40%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(201, 151, 58, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 540px;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--rose);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            color: #fff;
+            line-height: 1.1;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 em {
+            color: var(--rose);
+            font-style: italic;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 32px;
+            font-weight: 300;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--rose);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.25s;
+        }
+
+        .btn-primary:hover {
+            background: #d44f67;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(232, 99, 122, 0.4);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            cursor: pointer;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.25s;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cat-bar {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: auto;
+            padding: 0 16px;
+        }
+
+        .cat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px 18px;
+            cursor: pointer;
+            gap: 5px;
+            transition: all 0.2s;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            color: var(--text-mid);
+            min-width: 80px;
+        }
+
+        .cat-item:hover,
+        .cat-item.active {
+            border-bottom-color: var(--rose);
+            color: var(--plum);
+        }
+
+        .cat-item .cat-emoji {
+            font-size: 1.3rem;
+        }
+
+        .cat-item .cat-name {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .sale-banner {
+            background: linear-gradient(135deg, #b5484d 0%, #e8637a 35%, #c9973a 70%, #d4854a 100%);
+            padding: 48px 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sale-banner::before {
+            content: '✿ ✾ ✿ ✾ ✿ ✾ ✿ ✾ ✿ ✾ ✿ ✾ ✿';
+            position: absolute;
+            top: 8px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 0.8rem;
+            letter-spacing: 8px;
+        }
+
+        .sale-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #fff;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .sale-text h2 span {
+            font-style: italic;
+        }
+
+        .sale-text p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1rem;
+        }
+
+        .sale-badge {
+            background: #fff;
+            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .sale-badge .off {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--rose);
+            line-height: 1;
+        }
+
+        .sale-badge .off-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--plum);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .section {
+            padding: 48px 48px 32px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            color: var(--plum);
+            font-weight: 700;
+        }
+
+        .section-sub {
+            font-size: 0.82rem;
+            color: #999;
+            margin-bottom: 24px;
+        }
+
+        .section-divider {
+            width: 48px;
+            height: 3px;
+            background: var(--rose);
+            border-radius: 2px;
+            margin-bottom: 24px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.25s;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(61, 12, 46, 0.12);
+        }
+
+        .product-img {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+            background: linear-gradient(135deg, var(--soft-pink) 0%, #fce4ec 100%);
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--rose);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .product-badge.new {
+            background: var(--gold);
+        }
+
+        .product-badge.sale {
+            background: #e05050;
+        }
+
+        .product-wishlist {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+            z-index: 2;
+        }
+
+        .product-wishlist:hover {
+            transform: scale(1.1);
+        }
+
+        .product-wishlist.active {
+            background: var(--soft-pink);
+        }
+
+        .product-info {
+            padding: 14px;
+        }
+
+        .product-brand {
+            font-size: 0.65rem;
+            color: #bbb;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 3px;
+        }
+
+        .product-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .product-rating {
+            font-size: 0.7rem;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .price-main {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--plum);
+        }
+
+        .price-old {
+            font-size: 0.78rem;
+            color: #bbb;
+            text-decoration: line-through;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-cart {
+            flex: 1;
+            background: var(--plum);
+            color: #fff;
+            border: none;
+            padding: 9px 0;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .btn-cart:hover {
+            background: var(--rose);
+        }
+
+        .btn-cart.added {
+            background: #4caf50;
+        }
+
+        .auth-page {
+            min-height: calc(100vh - 64px);
+            background: linear-gradient(135deg, var(--deep-plum) 0%, #5c1a40 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .auth-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--plum);
+        }
+
+        .auth-logo span {
+            color: var(--rose);
+            font-style: italic;
+        }
+
+        .auth-tagline {
+            text-align: center;
+            color: #999;
+            font-size: 0.82rem;
+            margin-bottom: 28px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            background: var(--soft-pink);
+            border-radius: 10px;
+            padding: 4px;
+            margin-bottom: 28px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            color: var(--text-mid);
+        }
+
+        .auth-tab.active {
+            background: #fff;
+            color: var(--plum);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-mid);
+        }
+
+        .form-group input {
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-family: 'DM Sans', sans-serif;
+            outline: none;
+            transition: border 0.2s;
+            background: var(--ivory);
+        }
+
+        .form-group input:focus {
+            border-color: var(--rose);
+        }
+
+        .field-error {
+            font-size: 0.72rem;
+            color: #e05050;
+            display: none;
+        }
+
+        .field-error.show {
+            display: block;
+        }
+
+        .field-hint {
+            font-size: 0.7rem;
+            color: #bbb;
+        }
+
+        .auth-submit {
+            background: var(--rose);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 4px;
+        }
+
+        .auth-submit:hover {
+            background: #d44f67;
+            transform: translateY(-1px);
+        }
+
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            background: var(--border);
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            border-radius: 2px;
+            transition: all 0.3s;
+            width: 0%;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 380px;
+            max-width: 100vw;
+            background: #fff;
+            z-index: 2001;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-overlay.open .cart-panel {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cart-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--plum);
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #999;
+            padding: 4px;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 48px 24px;
+            color: #bbb;
+        }
+
+        .cart-empty .cart-empty-emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cart-item-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 10px;
+            background: var(--soft-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .cart-item-brand {
+            font-size: 0.72rem;
+            color: #bbb;
+            margin-bottom: 6px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            background: var(--soft-pink);
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--plum);
+        }
+
+        .qty-num {
+            font-size: 0.85rem;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-item-price {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--plum);
+        }
+
+        .cart-remove {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ddd;
+            font-size: 0.8rem;
+        }
+
+        .cart-remove:hover {
+            color: var(--rose);
+        }
+
+        .cart-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            background: var(--ivory);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 14px;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background: var(--rose);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-checkout:hover {
+            background: #d44f67;
+        }
+
+        .checkout-page {
+            padding: 40px 48px;
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .checkout-page h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--plum);
+            margin-bottom: 32px;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 32px;
+        }
+
+        .checkout-section {
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .checkout-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--plum);
+            margin-bottom: 16px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .checkout-summary {
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            position: sticky;
+            top: 80px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            padding: 6px 0;
+            color: var(--text-mid);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+            color: var(--plum);
+        }
+
+        .cod-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 2px solid var(--rose);
+            border-radius: 10px;
+            background: var(--soft-pink);
+            cursor: pointer;
+        }
+
+        .cod-radio {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--rose);
+        }
+
+        .cod-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-place-order {
+            width: 100%;
+            background: var(--plum);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.2s;
+        }
+
+        .btn-place-order:hover {
+            background: var(--rose);
+        }
+
+        .inner-page {
+            padding: 40px 48px;
+            min-height: calc(100vh - 64px);
+        }
+
+        .inner-page h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--plum);
+            margin-bottom: 8px;
+        }
+
+        .inner-page .page-sub {
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 32px;
+        }
+
+        .order-card {
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .order-emoji {
+            font-size: 2rem;
+            background: var(--soft-pink);
+            width: 56px;
+            height: 56px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .order-info h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .order-info .order-meta {
+            font-size: 0.78rem;
+            color: #999;
+        }
+
+        .order-status {
+            margin-left: auto;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .status-processing {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .status-delivered {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .fav-empty {
+            text-align: center;
+            padding: 64px 24px;
+        }
+
+        .fav-empty .fav-empty-emoji {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+
+        .fav-empty p {
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+        }
+
+        .modal-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--plum);
+            margin-bottom: 8px;
+        }
+
+        .modal-box p {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 24px;
+        }
+
+        .modal-btn {
+            background: var(--rose);
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--plum);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 5000;
+            transition: transform 0.3s;
+            white-space: nowrap;
+            box-shadow: 0 8px 24px rgba(61, 12, 46, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        footer {
+            background: var(--deep-plum);
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 24px;
+            font-size: 0.8rem;
+            margin-top: 48px;
+        }
+
+        footer span {
+            color: var(--rose);
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--blush);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="toast" id="toast"></div>
+    <div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h3>🛒 My Cart</h3><button class="cart-close" onclick="closeCart()">✕</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-footer" id="cartFooter" style="display:none">
+                <div class="cart-total"><span>Total</span><span id="cartTotal">₹0</span></div>
+                <button class="btn-checkout" onclick="goCheckout()">Proceed to Checkout →</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <div class="modal-icon">🎉</div>
+            <h3>Order Placed!</h3>
+            <p>Your order has been placed successfully. We'll deliver it to your doorstep soon!</p>
+            <button class="modal-btn"
+                onclick="document.getElementById('orderModal').classList.remove('show');showPage('home')">Continue
+                Shopping</button>
+        </div>
+    </div>
+    <nav style="display:none">
+        <div class="nav-logo" onclick="showPage('home')">Glow<span>Haus</span></div>
+        <div class="nav-search"><input type="text"
+                placeholder="Search for products, brands and more..."><button>🔍</button>
+        </div>
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="showPage('orders')"><span class="nav-label">Returns &</span><span
+                    class="nav-main">📦 Orders</span><span class="nav-badge" id="ordersBadge">0</span></button>
+            <div class="nav-divider"></div>
+            <button class="nav-btn" onclick="showPage('favourites')"><span class="nav-label">My</span><span
+                    class="nav-main">❤️ Favourites</span><span class="nav-badge" id="favBadge">0</span></button>
+            <div class="nav-divider"></div>
+            <button class="nav-btn" onclick="showPage('auth')"><span class="nav-label">Hello,</span><span
+                    class="nav-main" id="helloName">Sign In</span></button>
+            <div class="nav-divider"></div>
+            <button class="nav-btn" onclick="openCart()"><span class="nav-main">🛒 Cart</span><span class="nav-badge"
+                    id="cartBadge">0</span></button>
+            <div class="nav-divider"></div>
+            <button class="nav-btn" id="signOutBtn" onclick="signOut()" style="display:none"><span class="nav-main">Sign
+                    Out</span></button>
+        </div>
+    </nav>
+    <div class="page" id="page-home">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-eyebrow">✦ New Season, New Glow</div>
+                <h1>Beauty that <em>Blooms</em><br>in Every Shade</h1>
+                <p>Luxury cosmetics crafted for every skin tone. Bestsellers, new arrivals & exclusive sets — delivered
+                    to your
+                    door.</p>
+                <div class="hero-btns">
+                    <button class="btn-primary" onclick="scrollToBestDeals()">Shop Best Deals 🔥</button>
+                    <button class="btn-ghost">Our Story</button>
+                </div>
+            </div>
+        </section>
+        <div class="cat-bar">
+            <div class="cat-item active" onclick="scrollToSection('best-deals');setActiveCat(this)"><span
+                    class="cat-emoji">🔥</span><span class="cat-name">Best Deals</span></div>
+            <div class="cat-item" onclick="scrollToSection('lip');setActiveCat(this)"><span
+                    class="cat-emoji">💄</span><span class="cat-name">Lip</span></div>
+            <div class="cat-item" onclick="scrollToSection('nails');setActiveCat(this)"><span
+                    class="cat-emoji">✨</span><span class="cat-name">Nails</span></div>
+            <div class="cat-item" onclick="scrollToSection('face');setActiveCat(this)"><span
+                    class="cat-emoji">🌸</span><span class="cat-name">Face</span></div>
+            <div class="cat-item" onclick="scrollToSection('skincare');setActiveCat(this)"><span
+                    class="cat-emoji">🧴</span><span class="cat-name">Skincare</span></div>
+
+            <div class="cat-item" onclick="scrollToSection('trending');setActiveCat(this)"><span
+                    class="cat-emoji">🌟</span><span class="cat-name">Trending</span></div>
+        </div>
+        <section class="section" id="best-deals">
+            <div class="section-header">
+                <h2>🔥 Best Deals</h2>
+            </div>
+            <p class="section-sub">Limited time offers — grab them before they're gone!</p>
+            <div class="section-divider"></div>
+            <div class="product-grid" id="grid-best-deals"></div>
+        </section>
+        <div class="sale-banner">
+            <div class="sale-text">
+                <h2>☀️ <span>Summer</span> Sale</h2>
+                <p>Soak up the savings — up to 50% off on summer favourites</p><button class="btn-ghost"
+                    style="margin-top:16px;border-color:rgba(255,255,255,0.6)" onclick="scrollToBestDeals()">Shop Now
+                    →</button>
+            </div>
+            <div style="display:flex;gap:20px;align-items:center">
+                <div class="sale-badge"><span class="off">50%</span><span class="off-label">OFF</span></div>
+                <div style="text-align:center;color:rgba(255,255,255,0.8)">
+                    <div style="font-size:2.5rem">🌼</div>
+                    <div style="font-size:0.75rem;letter-spacing:1px;margin-top:4px">SUMMER VIBES</div>
+                </div>
+            </div>
+        </div>
+        <section class="section" id="lip">
+            <div class="section-header">
+                <h2>💄 Lip Essentials</h2>
+            </div>
+            <p class="section-sub">Luscious lips, every shade of the spectrum</p>
+            <div class="section-divider"></div>
+            <div class="product-grid" id="grid-lip"></div>
+        </section>
+        <section class="section" id="nails">
+            <div class="section-header">
+                <h2>✨ Nails</h2>
+            </div>
+            <p class="section-sub">From classic reds to holographic glitters</p>
+            <div class="section-divider"></div>
+            <div class="product-grid" id="grid-nails"></div>
+        </section>
+        <section class="section" id="face">
+            <div class="section-header">
+                <h2>🌸 Face Makeup</h2>
+            </div>
+            <p class="section-sub">Flawless base, radiant finish</p>
+            <div class="section-divider"></div>
+            <div class="product-grid" id="grid-face"></div>
+        </section>
+        <section class="section" id="skincare">
+            <div class="section-header">
+                <h2>🧴 Skincare</h2>
+            </div>
+            <p class="section-sub">Nourish, hydrate, and glow</p>
+            <div class="section-divider"></div>
+            <div class="product-grid" id="grid-skincare"></div>
+        </section>
+
+        <section class="section" id="trending">
+            <div class="section-header">
+                <h2>🌟 Trending</h2>
+            </div>
+            <p class="section-sub">What's hot right now on GlowHaus</p>
+            <div class="section-divider"></div>
+            <div class="product-grid" id="grid-trending"></div>
+        </section>
+        <footer>
+            <p>© 2025 <span>GlowHaus</span>. Made with 💕 for every beautiful soul.</p>
+        </footer>
+    </div>
+    <div class="page active" id="page-auth">
+        <div class="auth-page">
+            <div class="auth-card">
+                <div class="auth-logo">Glow<span>Haus</span></div>
+                <div class="auth-tagline">✦ Beauty that Blooms in Every Shade ✦</div>
+                <div class="auth-tabs"><button class="auth-tab active" id="loginTab"
+                        onclick="switchTab('login')">Login</button><button class="auth-tab" id="signupTab"
+                        onclick="switchTab('signup')">Sign Up</button></div>
+                <div id="loginForm" class="auth-form" style="display:flex">
+                    <div class="form-group"><label>Email Address</label><input type="email" id="loginEmail"
+                            placeholder="name@gmail.com"><span class="field-error" id="loginEmailErr">Please enter a
+                            valid
+                            email</span></div>
+                    <div class="form-group"><label>Password</label><input type="password" id="loginPass"
+                            placeholder="Enter your password"><span class="field-error" id="loginPassErr">Password is
+                            required</span>
+                    </div>
+                    <button class="auth-submit" onclick="doLogin()">Login to GlowHaus 💄</button>
+                </div>
+                <div id="signupForm" class="auth-form" style="display:none">
+                    <div class="form-group"><label>Username</label><input type="text" id="suName"
+                            placeholder="Letters only"><span class="field-error" id="suNameErr">Username must contain
+                            letters only</span></div>
+                    <div class="form-group"><label>Email Address</label><input type="email" id="suEmail"
+                            placeholder="name@gmail.com"><span class="field-error" id="suEmailErr">Email must be in
+                            name@gmail.com
+                            format</span></div>
+                    <div class="form-group"><label>Password</label><input type="password" id="suPass"
+                            placeholder="Min 8 chars, 1 upper, 1 lower, 1 number, 1 special"
+                            oninput="checkPasswordStrength(this.value)">
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="pwBar"></div>
+                        </div><span class="field-hint">Must have 8+ chars, uppercase, lowercase, number, special
+                            char</span><span class="field-error" id="suPassErr">Password doesn't meet
+                            requirements</span>
+                    </div>
+                    <div class="form-group"><label>Confirm Password</label><input type="password" id="suPassConfirm"
+                            placeholder="Re-enter your password"><span class="field-error"
+                            id="suPassConfirmErr">Passwords do not
+                            match</span></div>
+                    <button class="auth-submit" onclick="doSignup()">Create My Account ✨</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="page-checkout">
+        <div class="checkout-page">
+            <h2>Checkout</h2>
+            <div class="checkout-grid">
+                <div>
+                    <div class="checkout-section">
+                        <h3>📍 Delivery Address</h3>
+                        <div class="auth-form">
+                            <div class="form-row">
+                                <div class="form-group"><label>Full Name</label><input type="text"
+                                        placeholder="Your name" id="chkName">
+                                </div>
+                                <div class="form-group"><label>Phone</label><input type="tel"
+                                        placeholder="10-digit number" id="chkPhone"></div>
+                            </div>
+                            <div class="form-group"><label>Address</label><input type="text"
+                                    placeholder="House no, Street, Area" id="chkAddr"></div>
+                            <div class="form-row">
+                                <div class="form-group"><label>City</label><input type="text" placeholder="City"
+                                        id="chkCity"></div>
+                                <div class="form-group"><label>Pincode</label><input type="text"
+                                        placeholder="6-digit pincode" id="chkPin"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-section">
+                        <h3>💳 Payment Method</h3>
+                        <div class="cod-option"><input type="radio" class="cod-radio" checked>
+                            <div>
+                                <div class="cod-label">💵 Cash on Delivery</div>
+                                <div style="font-size:0.75rem;color:#999;margin-top:2px">Pay when your order arrives
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="checkout-summary">
+                        <h3
+                            style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--plum);margin-bottom:16px">
+                            Order
+                            Summary</h3>
+                        <div id="checkoutItems"></div>
+                        <div class="summary-item"><span>Subtotal</span><span id="chkSubtotal">₹0</span></div>
+                        <div class="summary-item"><span>Delivery</span><span style="color:#4caf50">FREE</span></div>
+                        <div class="summary-total"><span>Total</span><span id="chkTotal">₹0</span></div><button
+                            class="btn-place-order" onclick="placeOrder()">Place Order 🎉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="page-orders">
+        <div class="inner-page">
+            <h2>📦 My Orders</h2>
+            <p class="page-sub">Track and manage your GlowHaus orders</p>
+            <div id="ordersList"></div>
+        </div>
+    </div>
+    <div class="page" id="page-favourites">
+        <div class="inner-page">
+            <h2>❤️ My Favourites</h2>
+            <p class="page-sub">Items you've loved and saved</p>
+            <div id="favGrid" class="product-grid"></div>
+            <div id="favEmpty" class="fav-empty">
+                <div class="fav-empty-emoji">🌸</div>
+                <p>No favourites yet. Heart items you love!</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Load images safely from JSON tag (immune to script injection)
+        const PRODUCT_IMAGES = JSON.parse(document.getElementById('product-images').textContent);
+
+        // Skincare section – real product image URLs
+        PRODUCT_IMAGES['sk1'] = 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&auto=format'; // Hyaluronic Acid Serum
+        PRODUCT_IMAGES['sk2'] = 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=400&fit=crop&auto=format'; // Niacinamide Toner
+        PRODUCT_IMAGES['sk3'] = 'https://images.unsplash.com/photo-1601049676869-702ea24cfd58?w=400&h=400&fit=crop&auto=format'; // Retinol Night Cream
+        PRODUCT_IMAGES['sk4'] = 'https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=400&h=400&fit=crop&auto=format'; // SPF50 Sunscreen
+        PRODUCT_IMAGES['sk5'] = 'https://images.pexels.com/photos/6621462/pexels-photo-6621462.jpeg?auto=compress&cs=tinysrgb&w=400'; // Rose Water Mist
+        PRODUCT_IMAGES['sk6'] = 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&auto=format'; // Ceramide Barrier Cream
+        PRODUCT_IMAGES['sk7'] = 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=400&fit=crop&auto=format'; // AHA+BHA Exfoliant
+        PRODUCT_IMAGES['sk8'] = 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=400&h=400&fit=crop&auto=format'; // Vitamin C Brightening Serum
+        PRODUCT_IMAGES['sk9'] = 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&h=400&fit=crop&auto=format'; // Snail Mucin Essence
+        PRODUCT_IMAGES['sk10'] = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&auto=format'; // Eye Cream Anti-Age
+
+        // Trending section – Unsplash CDN (all confirmed working)
+        PRODUCT_IMAGES['t1'] = 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&auto=format'; // Glass Skin Serum – serum dropper bottle
+        PRODUCT_IMAGES['t3'] = 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop&auto=format'; // Cloud Blush Stick
+        PRODUCT_IMAGES['t8'] = 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&auto=format'; // Cherry Lip Butter
+        PRODUCT_IMAGES['t9'] = 'https://images.unsplash.com/photo-1601049676869-702ea24cfd58?w=400&h=400&fit=crop&auto=format'; // Oat Milk Moisturiser – face cream jar
+        PRODUCT_IMAGES['t10'] = 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=400&fit=crop&auto=format'; // Lash Glue Liner – mascara/liner
+
+        const PRODUCTS = {
+            'best-deals': [
+                { id: 'bd1', name: 'Rose Gold Glow Kit', brand: 'GlowHaus', price: 849, old: 1299, emoji: '✨', badge: 'sale' },
+                { id: 'bd2', name: 'Velvet Matte Lip Set', brand: 'LuxeLip', price: 599, old: 999, emoji: '💋', badge: 'sale' },
+                { id: 'bd3', name: 'Vitamin C Serum', brand: 'PureSkin', price: 449, old: 799, emoji: '🍊', badge: 'sale' },
+                { id: 'bd4', name: 'Brow Duo Pencil', brand: 'BrowBar', price: 299, old: 499, emoji: '✏️', badge: 'sale' },
+                { id: 'bd5', name: 'Setting Spray 200ml', brand: 'StayReal', price: 349, old: 549, emoji: '💧', badge: 'sale' },
+                { id: 'bd6', name: 'Blush Palette Trio', brand: 'RoséFace', price: 699, old: 1099, emoji: '🌸', badge: 'sale' },
+                { id: 'bd7', name: 'Primer + Foundation Bundle', brand: 'BaseKing', price: 999, old: 1599, emoji: '🫙', badge: 'sale' },
+                { id: 'bd8', name: 'Hydra Lip Gloss 5-Pack', brand: 'GlossUp', price: 399, old: 699, emoji: '💎', badge: 'sale' },
+                { id: 'bd9', name: 'Sheet Mask Bundle x10', brand: 'KoreGlow', price: 499, old: 849, emoji: '🎭', badge: 'sale' },
+                { id: 'bd10', name: 'Nail Art Starter Kit', brand: 'NailNinja', price: 349, old: 549, emoji: '🎨', badge: 'sale' },
+            ],
+            'lip': [
+                { id: 'l1', name: 'Satin Matte Lipstick', brand: 'LuxeLip', price: 549, old: null, emoji: '💄', badge: 'new' },
+                { id: 'l2', name: '24hr Liquid Lip', brand: 'StayOn', price: 449, old: null, emoji: '💋', badge: null },
+                { id: 'l3', name: 'Plumping Lip Gloss', brand: 'GlossUp', price: 399, old: 499, emoji: '🫦', badge: 'sale' },
+                { id: 'l4', name: 'Ombre Lip Liner', brand: 'OutlineMe', price: 249, old: null, emoji: '✏️', badge: null },
+                { id: 'l5', name: 'Butter Lip Balm SPF30', brand: 'SoftKiss', price: 199, old: null, emoji: '🍯', badge: 'new' },
+                { id: 'l6', name: 'Lip Stain + Gloss Duo', brand: 'DuoLip', price: 599, old: 799, emoji: '💝', badge: 'sale' },
+                { id: 'l7', name: 'Berry Ombre Lip Kit', brand: 'BerryMe', price: 699, old: null, emoji: '🍇', badge: 'new' },
+                { id: 'l8', name: 'Velvet Lip Crayon', brand: 'CrayonKiss', price: 299, old: null, emoji: '🖍️', badge: null },
+                { id: 'l9', name: 'Glass Lip Oil Rose', brand: 'ShineOn', price: 449, old: 549, emoji: '🌹', badge: 'sale' },
+                { id: 'l10', name: 'Matte Lip Wardrobe x6', brand: 'LipWardrobe', price: 999, old: 1499, emoji: '🎀', badge: 'sale' },
+            ],
+            'nails': [
+                { id: 'n1', name: 'Gel Nail Polish Set x12', brand: 'GelPro', price: 899, old: 1299, emoji: '💅', badge: 'sale' },
+                { id: 'n2', name: 'Press-On Nails Glam', brand: 'ClipIt', price: 299, old: null, emoji: '✨', badge: 'new' },
+                { id: 'n3', name: 'Holographic Nail Powder', brand: 'NailNinja', price: 199, old: null, emoji: '🌈', badge: null },
+                { id: 'n4', name: 'French Tip Kit', brand: 'FrenchKiss', price: 349, old: 499, emoji: '🤍', badge: 'sale' },
+                { id: 'n5', name: 'Cuticle Oil Pen', brand: 'NailCare', price: 249, old: null, emoji: '💧', badge: 'new' },
+                { id: 'n6', name: 'Nail Art Stamping Set', brand: 'StampIt', price: 449, old: 599, emoji: '🎨', badge: 'sale' },
+                { id: 'n7', name: 'Matte Top Coat', brand: 'MatteFin', price: 299, old: null, emoji: '🫧', badge: null },
+                { id: 'n8', name: 'Nail Gems & Stickers', brand: 'GlitzGlam', price: 199, old: 299, emoji: '💎', badge: 'sale' },
+                { id: 'n9', name: 'Builder Gel Clear', brand: 'BuildUp', price: 549, old: null, emoji: '🏗️', badge: 'new' },
+                { id: 'n10', name: 'Nail Polish Remover Pads', brand: 'CleanMe', price: 149, old: 199, emoji: '🧻', badge: 'sale' },
+            ],
+            'face': [
+                { id: 'f1', name: 'Dewy Glass Foundation', brand: 'BaseKing', price: 1099, old: 1499, emoji: '🪟', badge: 'sale' },
+                { id: 'f2', name: 'Powder Contour Duo', brand: 'SculptMe', price: 799, old: null, emoji: '🎭', badge: 'new' },
+                { id: 'f3', name: 'Luminous Blush Stick', brand: 'RoséFace', price: 549, old: 699, emoji: '🌸', badge: 'sale' },
+                { id: 'f4', name: 'Setting Powder Translucent', brand: 'StayReal', price: 499, old: null, emoji: '☁️', badge: null },
+                { id: 'f5', name: 'HD Concealer 30ml', brand: 'HideIt', price: 449, old: 599, emoji: '🎪', badge: 'sale' },
+                { id: 'f6', name: 'Sun-Kissed Bronzer', brand: 'SunKiss', price: 699, old: null, emoji: '☀️', badge: 'new' },
+                { id: 'f7', name: 'Pore-Blurring Primer', brand: 'BlurMe', price: 599, old: 799, emoji: '🫧', badge: 'sale' },
+                { id: 'f8', name: 'Baked Highlighter Duo', brand: 'GlowHaus', price: 849, old: 1099, emoji: '⭐', badge: 'sale' },
+                { id: 'f9', name: 'Colour Correcting Palette', brand: 'CorrectMe', price: 749, old: null, emoji: '🎨', badge: 'new' },
+                { id: 'f10', name: 'Skin Tint SPF40', brand: 'BareSkin', price: 799, old: 999, emoji: '🌟', badge: 'sale' },
+            ],
+            'skincare': [
+                { id: 'sk1', name: 'Hyaluronic Acid Serum', brand: 'PureSkin', price: 699, old: 999, emoji: '💦', badge: 'sale' },
+                { id: 'sk2', name: 'Niacinamide 10% Toner', brand: 'GlowLab', price: 499, old: null, emoji: '🧪', badge: 'new' },
+                { id: 'sk3', name: 'Retinol Night Cream', brand: 'NightGlow', price: 999, old: 1399, emoji: '🌙', badge: 'sale' },
+                { id: 'sk4', name: 'SPF50 Sunscreen PA+++', brand: 'ShieldMe', price: 549, old: null, emoji: '☀️', badge: 'new' },
+                { id: 'sk5', name: 'Rose Water Mist 150ml', brand: 'PetalSoft', price: 349, old: 449, emoji: '🌹', badge: 'sale' },
+                { id: 'sk6', name: 'Ceramide Barrier Cream', brand: 'BarrierUp', price: 799, old: null, emoji: '🛡️', badge: null },
+                { id: 'sk7', name: 'AHA+BHA Exfoliant', brand: 'GlowLab', price: 649, old: 849, emoji: '✨', badge: 'sale' },
+                { id: 'sk8', name: 'Vitamin C Brightening Serum', brand: 'BrightMe', price: 849, old: 1199, emoji: '🍋', badge: 'sale' },
+                { id: 'sk9', name: 'Snail Mucin Essence', brand: 'KoreGlow', price: 599, old: null, emoji: '🐌', badge: 'new' },
+                { id: 'sk10', name: 'Eye Cream Anti-Age', brand: 'EyeSave', price: 749, old: 999, emoji: '👁️', badge: 'sale' },
+            ],
+            'eye': [
+                { id: 'e1', name: 'Kohl Kajal Smudge Pencil', brand: 'KohlKween', price: 249, old: null, emoji: '✏️', badge: null },
+                { id: 'e2', name: 'Volume Mascara Jet Black', brand: 'LashLux', price: 449, old: 599, emoji: '🖤', badge: 'sale' },
+                { id: 'e3', name: '12-Shade Eyeshadow Palette', brand: 'EyeCandy', price: 899, old: 1299, emoji: '🎨', badge: 'sale' },
+                { id: 'e4', name: 'Waterproof Liquid Liner', brand: 'LineKing', price: 299, old: null, emoji: '🖊️', badge: 'new' },
+                { id: 'e5', name: 'Lash Serum + Primer', brand: 'LashLab', price: 649, old: 849, emoji: '💫', badge: 'sale' },
+                { id: 'e6', name: 'Brow Gel Tinted', brand: 'BrowBar', price: 349, old: null, emoji: '🌿', badge: 'new' },
+                { id: 'e7', name: 'Eyeshadow Primer Base', brand: 'BaseKing', price: 299, old: 399, emoji: '🪄', badge: 'sale' },
+                { id: 'e8', name: 'Glitter Liner Gold', brand: 'GlitzGlam', price: 249, old: null, emoji: '⭐', badge: null },
+                { id: 'e9', name: 'False Lashes 5-Pair Set', brand: 'LashDiva', price: 399, old: 549, emoji: '👁️', badge: 'sale' },
+                { id: 'e10', name: 'Curling Lash Mascara', brand: 'CurlUp', price: 499, old: null, emoji: '🌀', badge: 'new' },
+            ],
+            'bodycare': [
+                { id: 'bc1', name: 'Rose & Shea Body Butter', brand: 'BodyBliss', price: 699, old: 899, emoji: '🌹', badge: 'sale' },
+                { id: 'bc2', name: 'Glow Shimmer Body Oil', brand: 'ShimmerMe', price: 849, old: null, emoji: '✨', badge: 'new' },
+                { id: 'bc3', name: 'Coffee Scrub 200g', brand: 'ScrubBar', price: 399, old: 549, emoji: '☕', badge: 'sale' },
+                { id: 'bc4', name: 'Lavender Bath Salts', brand: 'BathBliss', price: 299, old: null, emoji: '💜', badge: null },
+                { id: 'bc5', name: 'Coconut Body Lotion', brand: 'CocoSoft', price: 449, old: 549, emoji: '🥥', badge: 'sale' },
+                { id: 'bc6', name: 'Stretch Mark Cream', brand: 'SkinSave', price: 799, old: 999, emoji: '💛', badge: 'sale' },
+                { id: 'bc7', name: 'Dry Brush Set', brand: 'BrushBar', price: 349, old: null, emoji: '🪥', badge: 'new' },
+                { id: 'bc8', name: 'Jasmine Shower Gel', brand: 'BloomClean', price: 299, old: 399, emoji: '🌸', badge: 'sale' },
+                { id: 'bc9', name: 'Heel Repair Balm', brand: 'FootCare', price: 199, old: null, emoji: '🦶', badge: null },
+                { id: 'bc10', name: 'Gua Sha Body Tool', brand: 'SculptMe', price: 599, old: 799, emoji: '🪨', badge: 'sale' },
+            ],
+            'gifts': [
+                { id: 'g1', name: 'Royal Glow Gift Set', brand: 'GlowHaus', price: 1999, old: 2999, emoji: '👑', badge: 'sale' },
+                { id: 'g2', name: 'Lip Love Collection', brand: 'LuxeLip', price: 1499, old: null, emoji: '💝', badge: 'new' },
+                { id: 'g3', name: 'Skincare Starter Kit', brand: 'PureSkin', price: 1299, old: 1899, emoji: '🎁', badge: 'sale' },
+                { id: 'g4', name: 'Spa Day at Home Set', brand: 'BodyBliss', price: 1799, old: null, emoji: '🛁', badge: 'new' },
+                { id: 'g5', name: 'Eye Drama Gift Box', brand: 'EyeCandy', price: 1099, old: 1499, emoji: '🎭', badge: 'sale' },
+                { id: 'g6', name: 'Mini Perfume Discovery', brand: 'ScentMe', price: 999, old: null, emoji: '🌺', badge: 'new' },
+                { id: 'g7', name: 'Nail Art Party Kit', brand: 'NailNinja', price: 799, old: 999, emoji: '🎪', badge: 'sale' },
+                { id: 'g8', name: 'Glow Ritual Bundle', brand: 'GlowLab', price: 1599, old: 2199, emoji: '🌟', badge: 'sale' },
+                { id: 'g9', name: 'Best Friend Beauty Box', brand: 'GlowHaus', price: 2499, old: null, emoji: '💞', badge: 'new' },
+                { id: 'g10', name: 'Bridal Prep Set', brand: 'BridalGlow', price: 2999, old: 3999, emoji: '👰', badge: 'sale' },
+            ],
+            'trending': [
+                { id: 't1', name: 'Glass Skin Serum', brand: 'KoreGlow', price: 999, old: null, emoji: '🪟', badge: 'new' },
+                { id: 't3', name: 'Cloud Blush Stick', brand: 'RoséFace', price: 649, old: null, emoji: '☁️', badge: 'new' },
+                { id: 't8', name: 'Cherry Lip Butter', brand: 'SoftKiss', price: 299, old: null, emoji: '🍒', badge: 'new' },
+                { id: 't9', name: 'Oat Milk Moisturiser', brand: 'PureSkin', price: 849, old: null, emoji: '🥛', badge: 'new' },
+                { id: 't10', name: 'Lash Glue Liner', brand: 'LashLux', price: 449, old: null, emoji: '👁️', badge: 'new' },
+            ],
+        };
+        // In-memory store — works in Chrome from file://, no localStorage issues
+        const _DB = { users: [], cart: [], favs: [], orders: [] };
+        let cart = _DB.cart;
+        let favourites = _DB.favs;
+        let orders = _DB.orders;
+        let currentUser = null;
+        function saveState() { /* state lives in _DB arrays, always in sync */ }
+        function showPage(n) { if (n !== 'auth' && !currentUser) { n = 'auth'; } document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById('page-' + n).classList.add('active'); document.querySelector('nav').style.display = (n === 'auth') ? 'none' : 'flex'; if (n === 'orders') renderOrders(); if (n === 'favourites') renderFavourites(); window.scrollTo(0, 0); }
+        function renderProducts() { Object.entries(PRODUCTS).forEach(([key, prods]) => { const g = document.getElementById('grid-' + key); if (!g) return; g.innerHTML = prods.map(p => productCard(p)).join(''); }); updateBadges(); }
+        function productCard(p) {
+            const isFav = favourites.some(f => f.id === p.id);
+            const inCart = cart.find(c => c.id === p.id);
+            const stars = '★★★★' + (Math.random() > 0.5 ? '★' : '☆');
+            const rating = (3.8 + Math.random() * 1.2).toFixed(1);
+            const img = PRODUCT_IMAGES[p.id];
+            return `<div class="product-card" id="card-${p.id}">
+    <div class="product-img">
+      ${p.badge ? `<span class="product-badge ${p.badge}">${p.badge === 'new' ? 'NEW' : 'SALE'}</span>` : ''}
+      <button class="product-wishlist ${isFav ? 'active' : ''}" onclick="toggleFav('${p.id}')" id="wish-${p.id}">${isFav ? '❤️' : '🤍'}</button>
+      ${img ? `<img src="${img}" alt="${p.name}">` : `<span style="font-size:3.5rem;position:relative;z-index:1">${p.emoji}</span>`}
+    </div>
+    <div class="product-info">
+      <div class="product-brand">${p.brand}</div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-rating">${stars} <span style="color:#888">${rating} (${Math.floor(Math.random() * 5000 + 100)})</span></div>
+      <div class="product-price"><span class="price-main">₹${p.price}</span>${p.old ? `<span class="price-old">₹${p.old}</span><span style="font-size:0.72rem;color:#e05050;font-weight:700">${Math.round((1 - p.price / p.old) * 100)}% off</span>` : ''}</div>
+      <div class="product-actions"><button class="btn-cart ${inCart ? 'added' : ''}" id="btn-cart-${p.id}" onclick="addToCart('${p.id}')">${inCart ? '✓ Added' : '+ Add to Cart'}</button></div>
+    </div>
+  </div>`;
+        }
+        function getProductById(id) { for (const prods of Object.values(PRODUCTS)) { const p = prods.find(x => x.id === id); if (p) return p; } return null; }
+        function addToCart(id) { if (!currentUser) { showPage('auth'); showToast('Please sign in to add items to cart'); return; } const p = getProductById(id); if (!p) return; const ex = cart.find(c => c.id === id); if (ex) ex.qty++; else cart.push({ ...p, qty: 1 }); saveState(); updateBadges(); const btn = document.getElementById('btn-cart-' + id); if (btn) { btn.textContent = '✓ Added'; btn.classList.add('added'); } showToast('Added to cart! 🛒'); }
+        function removeFromCart(id) { cart = cart.filter(c => c.id !== id); saveState(); updateBadges(); renderCart(); const btn = document.getElementById('btn-cart-' + id); if (btn) { btn.textContent = '+ Add to Cart'; btn.classList.remove('added'); } }
+        function changeQty(id, delta) { const item = cart.find(c => c.id === id); if (!item) return; item.qty += delta; if (item.qty <= 0) removeFromCart(id); else { saveState(); updateBadges(); renderCart(); } }
+        function openCart() { renderCart(); document.getElementById('cartOverlay').classList.add('open'); }
+        function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); }
+        function renderCart() {
+            const el = document.getElementById('cartItems'); const footer = document.getElementById('cartFooter');
+            if (!cart.length) { el.innerHTML = '<div class="cart-empty"><span class="cart-empty-emoji">🛒</span><p>Your cart is empty</p></div>'; footer.style.display = 'none'; return; }
+            el.innerHTML = cart.map(item => { const img = PRODUCT_IMAGES[item.id]; const thumb = img ? `<img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">` : item.emoji; return `<div class="cart-item"><div class="cart-item-img">${thumb}</div><div class="cart-item-info"><div class="cart-item-name">${item.name}</div><div class="cart-item-brand">${item.brand}</div><div class="cart-item-controls"><button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button><span class="qty-num">${item.qty}</span><button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button><button class="cart-remove" onclick="removeFromCart('${item.id}')">✕ Remove</button></div></div><div class="cart-item-price">₹${(item.price * item.qty).toLocaleString()}</div></div>`; }).join('');
+            document.getElementById('cartTotal').textContent = '₹' + cart.reduce((s, i) => s + i.price * i.qty, 0).toLocaleString(); footer.style.display = 'block';
+        }
+        function toggleFav(id) { if (!currentUser) { showPage('auth'); showToast('Please sign in to save favourites'); return; } const p = getProductById(id); if (!p) return; const idx = favourites.findIndex(f => f.id === id); const btn = document.getElementById('wish-' + id); if (idx >= 0) { favourites.splice(idx, 1); if (btn) { btn.textContent = '🤍'; btn.classList.remove('active'); } showToast('Removed from favourites'); } else { favourites.push(p); if (btn) { btn.textContent = '❤️'; btn.classList.add('active'); } showToast('Added to favourites ❤️'); } saveState(); updateBadges(); }
+        function renderFavourites() { const g = document.getElementById('favGrid'); const e = document.getElementById('favEmpty'); if (!favourites.length) { g.innerHTML = ''; e.style.display = 'block'; return; } e.style.display = 'none'; g.innerHTML = favourites.map(p => productCard(p)).join(''); }
+        function renderOrders() { const el = document.getElementById('ordersList'); if (!orders.length) { el.innerHTML = '<div style="text-align:center;padding:64px;color:#bbb"><div style="font-size:4rem">📦</div><p style="margin-top:12px">No orders yet. Start shopping!</p></div>'; return; } el.innerHTML = orders.map(o => `<div class="order-card"><div class="order-emoji">${o.emoji}</div><div class="order-info"><h4>${o.name}</h4><div class="order-meta">Order #${o.id} · ${o.date} · ₹${o.total.toLocaleString()}</div></div><span class="order-status ${o.status === 'Delivered' ? 'status-delivered' : 'status-processing'}">${o.status}</span></div>`).join(''); }
+        function goCheckout() { closeCart(); if (!currentUser) { showPage('auth'); return; } const total = cart.reduce((s, i) => s + i.price * i.qty, 0); document.getElementById('checkoutItems').innerHTML = cart.map(i => `<div class="summary-item"><span>${i.name} x${i.qty}</span><span>₹${(i.price * i.qty).toLocaleString()}</span></div>`).join(''); document.getElementById('chkSubtotal').textContent = '₹' + total.toLocaleString(); document.getElementById('chkTotal').textContent = '₹' + total.toLocaleString(); showPage('checkout'); }
+        function placeOrder() { const name = document.getElementById('chkName').value; const addr = document.getElementById('chkAddr').value; if (!name || !addr) { showToast('Please fill delivery details'); return; } cart.forEach(item => { orders.unshift({ id: 'GH' + Date.now().toString().slice(-6), name: item.name, emoji: item.emoji, total: item.price * item.qty, date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }), status: 'Processing' }); }); cart = []; saveState(); updateBadges(); document.getElementById('orderModal').classList.add('show'); }
+        function updateBadges() { setBadge('cartBadge', cart.reduce((s, i) => s + i.qty, 0)); setBadge('favBadge', favourites.length); setBadge('ordersBadge', orders.length); }
+        function setBadge(id, count) { const el = document.getElementById(id); if (!el) return; el.textContent = count; el.classList.toggle('visible', count > 0); }
+        function switchTab(tab) { document.getElementById('loginForm').style.display = tab === 'login' ? 'flex' : 'none'; document.getElementById('signupForm').style.display = tab === 'signup' ? 'flex' : 'none'; document.getElementById('loginTab').classList.toggle('active', tab === 'login'); document.getElementById('signupTab').classList.toggle('active', tab === 'signup'); clearLoginErrors(); }
+        function clearLoginErrors() { ['loginEmailErr','loginPassErr','suNameErr','suEmailErr','suPassErr','suPassConfirmErr'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('show'); }); }
+        function validateEmail(e) { return /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(e); }
+        function validateUsername(n) { return /^[a-zA-Z]+$/.test(n); }
+        function validatePassword(p) { return p.length >= 8 && /[A-Z]/.test(p) && /[a-z]/.test(p) && /[0-9]/.test(p) && /[^A-Za-z0-9]/.test(p); }
+        function checkPasswordStrength(val) { const bar = document.getElementById('pwBar'); let s = 0; if (val.length >= 8) s++; if (/[A-Z]/.test(val)) s++; if (/[a-z]/.test(val)) s++; if (/[0-9]/.test(val)) s++; if (/[^A-Za-z0-9]/.test(val)) s++; bar.style.width = (s * 20) + '%'; bar.style.background = ['#e05050', '#e05050', '#ff9800', '#4caf50', '#2e7d32'][s - 1] || '#e0e0e0'; }
+        function showErr(id, show) { document.getElementById(id).classList.toggle('show', show); }
+        function doLogin() { const email = document.getElementById('loginEmail').value.trim(); const pass = document.getElementById('loginPass').value; let ok = true; if (!validateEmail(email)) { showErr('loginEmailErr', true); ok = false; } else showErr('loginEmailErr', false); if (!pass) { document.getElementById('loginPassErr').textContent = 'Password is required'; showErr('loginPassErr', true); ok = false; } else showErr('loginPassErr', false); if (!ok) return; if (_DB.users.length === 0) { document.getElementById('loginPassErr').textContent = 'No account found. Please Sign Up first!'; showErr('loginPassErr', true); return; } const user = _DB.users.find(u => u.email === email && u.password === pass); if (!user) { document.getElementById('loginPassErr').textContent = 'Invalid email or password'; showErr('loginPassErr', true); return; } loginSuccess(user.username); }
+        function doSignup() { const name = document.getElementById('suName').value.trim(); const email = document.getElementById('suEmail').value.trim(); const pass = document.getElementById('suPass').value; const confirm = document.getElementById('suPassConfirm').value; let ok = true; if (!validateUsername(name)) { showErr('suNameErr', true); ok = false; } else showErr('suNameErr', false); if (!validateEmail(email)) { showErr('suEmailErr', true); ok = false; } else showErr('suEmailErr', false); if (!validatePassword(pass)) { showErr('suPassErr', true); ok = false; } else showErr('suPassErr', false); if (pass !== confirm) { showErr('suPassConfirmErr', true); ok = false; } else showErr('suPassConfirmErr', false); if (!ok) return; if (_DB.users.find(u => u.email === email)) { document.getElementById('suEmailErr').textContent = 'Email already registered'; showErr('suEmailErr', true); return; } _DB.users.push({ username: name, email, password: pass }); loginSuccess(name); }
+        function loginSuccess(name) { currentUser = name; document.getElementById('helloName').textContent = name; document.getElementById('signOutBtn').style.display = 'flex'; showToast('Welcome, ' + name + '! ✨'); clearLoginErrors(); document.getElementById('loginEmail').value = ''; document.getElementById('loginPass').value = ''; showPage('home'); }
+        function signOut() { currentUser = null; document.getElementById('helloName').textContent = 'Sign In'; document.getElementById('signOutBtn').style.display = 'none'; showToast('Signed out. See you soon! 👋'); showPage('auth'); }
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+        function scrollToBestDeals() { document.getElementById('best-deals').scrollIntoView({ behavior: 'smooth' }); }
+        function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+        function setActiveCat(el) { document.querySelectorAll('.cat-item').forEach(c => c.classList.remove('active')); el.classList.add('active'); }
+        renderProducts(); updateBadges();
+    </script>
+</body>
+
+</html>
